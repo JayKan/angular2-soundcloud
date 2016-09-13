@@ -1,1 +1,1 @@
-# angualr2-soundcloud
+# angular2-soundcloud
