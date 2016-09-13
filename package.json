@@ -1,0 +1,70 @@
+{
+  "name": "angular2-soundcloud",
+  "version": "0.0.0",
+  "description": "A basic soundcloud client view API implemented in Angular2, TypeScript and Webpack",
+  "author": {
+    "name": "Jay Kan",
+    "email": "leicasper@gmail.com"
+  },
+  "scripts": {
+    "clean": "del-cli ./target",
+    "typings": "typings install",
+    "postinstall": "npm run typings",
+    "build:dev": "cross-env NODE_ENV=development webpack-dev-server --progress",
+    "build:prod": "cross-env NODE_ENV=production webpack --display-chunks --progress",
+    "server": "cross-env  NODE_ENV=development nodemon -w 'server/**/*.*' ./server/main.js",
+    "production": "npm run clean && npm run build:prod && npm run server",
+    "development": "npm run build:dev",
+    "start": "npm run development"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=5.11",
+    "npm": ">3.x"
+  },
+  "dependencies": {
+    "compression": "^1.6.2",
+    "express": "^4.14.0",
+    "helmet": "^2.1.3",
+    "serve-favicon": "^2.3.0",
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "@angular/common": "2.0.0-rc.6",
+    "@angular/compiler": "2.0.0-rc.6",
+    "@angular/core": "2.0.0-rc.6",
+    "@angular/forms": "2.0.0-rc.6",
+    "@angular/http": "2.0.0-rc.6",
+    "@angular/platform-browser": "2.0.0-rc.6",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.6",
+    "@angular/router": "3.0.0-rc.2",
+    "core-js": "~2.4.0",
+    "ie-shim": "^0.1.0",
+    "rxjs": "5.0.0-beta.11",
+    "ts-helpers": "^1.1.1",
+    "zone.js": "^0.6.17",
+    "autoprefixer": "~6.3.6",
+    "awesome-typescript-loader": "^2.2.4",
+    "copy-webpack-plugin": "^3.0.1",
+    "cross-env": "~2.0.0",
+    "css-loader": "~0.23.1",
+    "del-cli": "^0.2.0",
+    "extract-text-webpack-plugin": "~1.0.1",
+    "html-webpack-plugin": "~2.22.0",
+    "karma-sourcemap-loader": "~0.3.7",
+    "karma-webpack": "~1.7.0",
+    "morgan": "~1.7.0",
+    "node-sass": "~3.8.0",
+    "nodemon": "~1.9.2",
+    "postcss-loader": "~0.9.1",
+    "raw-loader": "~0.5.1",
+    "sass-loader": "~4.0.0",
+    "style-loader": "~0.13.1",
+    "ts-loader": "~0.8.2",
+    "typescript": "^1.8.10",
+    "typings": "^1.3.2",
+    "webpack": "~1.13.1",
+    "webpack-dev-server": "~1.14.1",
+    "webpack-md5-hash": "~0.0.5"
+  }
+}
