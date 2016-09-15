@@ -2,9 +2,11 @@
 # Directories
 #---------------------------------
 **/node_modules/
-target/
+public/
 tmp/
 typings/
+coverage/
+
 
 
 #---------------------------------
@@ -31,3 +33,4 @@ typings/
 __MACOSX/
 .DS_Store
 Thumbs.db
+/src/app/core/api/api-service.spec.ts
