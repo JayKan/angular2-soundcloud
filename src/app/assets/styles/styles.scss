@@ -430,9 +430,40 @@ textarea {
   font: inherit; /* 2 */
 }
 
+html {
+  background: #262728;
+  overflow-y: scroll;
+  cursor: default;
+}
+
 html, body {
-  background: #F4F3F0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'aktiv-grotesk', Helvetica Neue, Arial, sans-serif;
+  color: #aaabac;
+  height: 100%;
+}
+
+.g-row {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 960px;
+}
+
+.g-cont {
+  padding: 0 10px;
+}
+
+.g-col {
+  float: left;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+  border: 0;
 }
 
 
