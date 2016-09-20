@@ -13,7 +13,7 @@ app.set('host', process.env.HOST || 'localhost');
 app.set('port', process.env.PORT || 4000);
 
 app.use(require('morgan')('dev'));
-app.use(express.static(`${PROJECT_ROOT_DIR}/target`));
+app.use(express.static(`${PROJECT_ROOT_DIR}/public`));
 
 //=========================================================
 //  ROUTER
@@ -21,7 +21,7 @@ app.use(express.static(`${PROJECT_ROOT_DIR}/target`));
 const router = express.Router();
 
 router.get('*', (req, res) => {
-  res.sendFile(`${PROJECT_ROOT_DIR}/target/index.html`);
+  res.sendFile(`${PROJECT_ROOT_DIR}/public/index.html`);
 });
 
 app.use(router);
