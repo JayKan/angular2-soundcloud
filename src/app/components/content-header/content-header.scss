@@ -1,0 +1,28 @@
+content-header {
+
+  .content-header {
+    margin-bottom: 40px;
+    padding-top: 95px;
+    height: 220px;
+    color: #7d7e7f;
+    background: #1d1e1f;
+
+    .content-header-title {
+      color: #d6d6d6;
+      font-size: 2.25rem;
+      font-weight: 100;
+      line-height: (42px / 36px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      word-wrap: normal;
+      margin: 0;
+    }
+
+    .content-header-section {
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+  }
+}
