@@ -1,0 +1,2 @@
+export { IconComponent } from './icon';
+
