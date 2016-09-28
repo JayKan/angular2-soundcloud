@@ -33,4 +33,3 @@ coverage/
 __MACOSX/
 .DS_Store
 Thumbs.db
-/src/app/core/api/api-service.spec.ts
