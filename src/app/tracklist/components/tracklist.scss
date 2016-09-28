@@ -1,0 +1,96 @@
+tracklist {
+
+  .track-card-image {
+    position: relative; // IE11 needs this
+    height: auto;
+    background: #171819;
+
+    &:before {
+      content: '';
+      float: left;
+      padding-top: 100%;
+    }
+
+    img {
+      position: absolute; // IE11 needs this
+    }
+  }
+
+  .track-card {
+    overflow: hidden;
+  }
+  .track-card-main {
+    position: relative;
+    background: #1d1e1f;
+
+    &:before {
+      content: '';
+      float: left;
+      padding-top: 61.8%;
+    }
+  }
+
+  .track-card-timeline {
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    height: 9px;
+    background: #171819;
+  }
+
+  .track-card-username {
+    margin: 6px 15px 0;
+    font-size: .8125rem;
+    line-height: (20px / 13px);
+  }
+
+  .track-card-title {
+    margin: 0 15px;
+    color: #bdbebf;
+    font-size: .8125rem;
+    line-height: (20px / 14px);
+
+    .has-line-clamp & {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+  }
+
+  .track-card-compact {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    margin-bottom: 30px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid #18191a;
+    padding-top: 20px;
+  }
+
+  @media screen and (min-width: 980px) {
+    .lg {
+      width: 25% !important;
+    }
+  }
+
+  @media screen and (min-width: 740px) and (max-width: 970px) {
+    .md {
+      width: 33% !important;
+    }
+  }
+
+  @media screen and (min-width: 500px) and (max-width: 739px) {
+    .sm {
+      width: 50% !important;
+    }
+  }
+
+  @media screen and (min-width: 0) and (max-width: 499px) {
+    .track-card-main {
+      height: 130px;
+    }
+  }
+}
