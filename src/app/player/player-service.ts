@@ -5,14 +5,15 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { PLAYER_INITIAL_VOLUME } from '../constants'
+import { AppState } from '../';
 import { Track, TracklistCursor } from '../tracklist'
-import { PlayerState, TimesState } from './interfaces';
-
+import { PlayerState } from './reducers/player-state';
+import { getPlayer, getPlayerTrack, getPlayerTracklistCursor, getTimes } from './reducers/selectors';
+import { TimesState } from './reducers/times-state';
 import { AudioService } from './audio-service';
 import { AudioSource } from './audio-source';
 import { PlayerActions } from './player-actions';
 import { playerStorage } from './player-storage';
-
 
 @Injectable()
 export class PlayerService extends AudioService {
@@ -22,13 +23,29 @@ export class PlayerService extends AudioService {
   times$: Observable<TimesState>;
   track$: Observable<Track>;
 
-  constructor(private actions: PlayerActions, audio: AudioSource, private store$: Store<any>) {
+  constructor(
+    private actions: PlayerActions,
+    audio: AudioSource,
+    private store$: Store<AppState>) {
+
     super(actions, audio);
 
     this.events$.subscribe(action => store$.dispatch(action));
     this.volume = playerStorage.volume || PLAYER_INITIAL_VOLUME;
 
-    // this.cursor$ = store$.let(<any>)
+    this.cursor$ = store$.let(getPlayerTracklistCursor());
+    this.player$ = store$.let(getPlayer());
 
+    this.track$ = store$.let(getPlayerTrack());
+    this.track$.subscribe((track: Track) => this.play(track.streamUrl));
+
+    this.times$ = store$.let(getTimes());
+    this.currentTime$ = this.times$.pluck<number>('currentTime');
+  }
+
+  select({ trackId, tracklistId }: {trackId: number, tracklistId: string}): void {
+    this.store$.dispatch(
+      this.actions.playSelectedTrack(trackId, tracklistId)
+    );
   }
 }
