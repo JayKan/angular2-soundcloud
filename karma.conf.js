@@ -2,8 +2,6 @@
 
 const argv = require('yargs').argv;
 
-// module.exports = require('./config/karma.conf');
-
 module.exports = config => {
   const options = {
     basePath: '',

@@ -1,13 +1,16 @@
 'use strict';
 
-const argv = require('yargs').argv;
+const path = require('path');
 const autoprefixer = require('autoprefixer');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
+const DefinePlugin = require('webpack/lib/DefinePlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
-const path = require('path');
-const webpack = require('webpack');
+const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+const ProgressPlugin = require('webpack/lib/ProgressPlugin');
+const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
 
 //=========================================================
@@ -23,7 +26,7 @@ const PORT            = process.env.PORT || 3000;
 //=========================================================
 //  LOADERS
 //---------------------------------------------------------
-const loaders = {
+const rules = {
   typescript: {
     test: /\.ts$/,
     loader: 'ts',
@@ -32,17 +35,12 @@ const loaders = {
   componentStyles: {
     test: /\.scss$/,
     loader: 'raw!postcss!sass',
-    exclude: path.resolve('src/app/assets/styles')
+    exclude: path.resolve('src/shared/styles')
   },
   sharedStyles: {
     test: /\.scss$/,
     loader: 'style!css!postcss!sass',
-    include: path.resolve('src/app/assets/styles')
-  },
-  productionStyles: {
-    test: /\.scss$/,
-    loader: ExtractTextPlugin.extract('css?-autoprefixer!postcss!sass'),
-    include: path.resolve('src/app/assets/styles')
+    include: path.resolve('src/shared/styles')
   },
   jsonLoader: {
     test: /\.json$/,
@@ -69,63 +67,71 @@ const config = module.exports = {};
  * Reference: http://webpack.github.io/docs/configuration.html#resolve
  */
 config.resolve = {
-  extensions: ['', '.ts', '.js', '.json', '.css', '.scss', '.html', '.svg'],
-  root: path.resolve('.'),
-  modulesDirectories: ['node_modules']
+  extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html', '.svg'],
+  mainFields: ['module', 'browser', 'main'],
+  modules: [
+    path.resolve('.'),
+    'node_modules'
+  ]
 };
 
 config.module = {
-  loaders: [
-    loaders.typescript,
-    loaders.componentStyles,
-    loaders.jsonLoader,
-    loaders.fileLoader,
-    loaders.rawLoader
+  rules: [
+    rules.typescript,
+    rules.componentStyles,
+    rules.jsonLoader,
+    rules.fileLoader,
+    rules.rawLoader
   ]
 };
 
 config.plugins = [
-  new ForkCheckerPlugin(),
-  new webpack.DefinePlugin({
+  new DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
     'process.env.SOUNDCLOUD_CLIENT_ID': JSON.stringify(process.env.SOUNDCLOUD_CLIENT_ID)
   }),
+  new LoaderOptionsPlugin({
+    debug: false,
+    minimize: ENV_PRODUCTION,
+    options: {
+      postcss: [
+        autoprefixer({ browsers: ['last 3 versions'] })
+      ],
+      resolve: {},
+      sassLoader: {
+        includePaths: ['src/shared'],
+        outputStyle: 'compressed',
+        precision: 10,
+        sourceComments: false
+      }
+    }
+  }),
+  new ContextReplacementPlugin(
+    /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+    path.resolve('src')
+  ),
   new CopyWebpackPlugin([
-    { from: 'src/app/assets/images', to: 'assets'   },
+    { from: 'src/shared/assets/images', to: 'assets'   },
   ])
 ];
-
-config.postcss = [
-  autoprefixer({ browser: ['last 3 versions'] })
-];
-
-config.sassLoader = {
-  includePath: ['src/app/assets'],
-  outputStyle: 'compressed',
-  prevision: 10,
-  sourceComments: false
-};
-
 
 //=========================================================
 //  COMMON DEVELOPMENT/PRODUCTION
 //---------------------------------------------------------
 if (ENV_DEVELOPMENT || ENV_PRODUCTION) {
   config.entry = {
-    main: ['./src/main.ts'],
-    polyfills: './src/polyfills.ts',
-    vendor: './src/vendor.ts'
+    main: './src/main.ts',
+    polyfills: './src/polyfills.ts'
   };
 
   config.output = {
-    filename: '[name].js',
     path: path.resolve('./public'),
     publicPath: '/'
   };
 
   config.plugins.push(
-    new webpack.optimize.CommonsChunkPlugin({
-      name: ['vendor', 'polyfills'],
+    new CommonsChunkPlugin({
+      name: ['polyfills'],
       minChunks: Infinity
     }),
     new HtmlWebpackPlugin({
@@ -144,9 +150,11 @@ if (ENV_DEVELOPMENT || ENV_PRODUCTION) {
 if (ENV_DEVELOPMENT) {
   config.devtool = 'cheap-module-source-map';
 
-  config.entry.main.unshift(`webpack-dev-server/client?http://${HOST}:${PORT}`);
+  config.output.filename = '[name].js';
 
-  config.module.loaders.push(loaders.sharedStyles);
+  config.module.rules.push(rules.sharedStyles);
+
+  config.plugins.push(new ProgressPlugin());
 
   config.devServer = {
     contentBase: './src',
@@ -172,32 +180,32 @@ if (ENV_DEVELOPMENT) {
 //  PRODUCTION ONLY
 //---------------------------------------------------------
 if (ENV_PRODUCTION) {
-  config.debug = false;
-
-  config.devtool = 'source-map';
+  config.devtool = 'hidden-source-map';
 
   config.output.filename = '[name].[chunkhash].js';
 
-  config.module.loaders.push(loaders.productionStyles);
+  config.module.rules.push({
+    test: /\.scss$/,
+    loader: ExtractTextPlugin.extract('css?-autoprefixer!postcss!sass'),
+    include: path.resolve('src/shared/styles')
+  });
 
   config.plugins.push(
     new WebpackMd5Hash(),
     new ExtractTextPlugin('styles.[contenthash].css'),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      beautify: false,
-      mangle: {
-        screw_ie8: true  // eslint-disable-line camelcase
-      },
+    new UglifyJsPlugin({
+      comments: false,
       compress: {
         dead_code: true, // eslint-disable-line camelcase
         screw_ie8: true, // eslint-disable-line camelcase
         unused: true,
         warnings: false
       },
-      comments: false
+      mangle: {
+        screw_ie8: true  // eslint-disable-line camelcase
+      }
     })
-  );
+  )
 }
 
 //=========================================================
@@ -206,17 +214,5 @@ if (ENV_PRODUCTION) {
 if (ENV_TEST) {
   config.devtool = 'inline-source-map';
 
-  config.module.loaders.push(loaders.sharedStyles);
-
-  if (argv.coverage) {
-    config.module.postLoaders = [{
-      test: /\.ts$/,
-      loader: 'istanbul-instrumenter-loader',
-      include: path.resolve('src'),
-      exclude: [
-        /\.spec\.ts$/,
-        /node_modules/
-      ]
-    }];
-  }
+  config.module.rules.push(rules.sharedStyles);
 }
