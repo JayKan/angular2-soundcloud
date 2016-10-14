@@ -17,12 +17,20 @@ app-header {
 
   .header-title {
     float: left;
-    padding-top: 10px;
+    padding-top: 6px;
     height: 60px;
     font-size: .875rem;
     font-weight: 400;
     line-height: (40px / 14px);
     margin: 0;
+
+    > a {
+      color: #d6d6d6;
+      font-size: 18px;
+      &:hover {
+        text-decoration: none;
+      }
+    }
   }
 
   .header-actions {
@@ -81,13 +89,12 @@ app-header {
     }
 
     .link-github {
-      margin-top: 2px;
       width: 20px;
       height: 20px;
 
-      .icon {
-        width: 20px;
-        height: 20px;
+      i.fa.fa-github {
+        color: #98999a;
+        font-size: 26px;
       }
     }
   }
