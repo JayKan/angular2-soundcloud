@@ -1,10 +1,10 @@
 import 'rxjs/add/operator/let';
 
 import { Injectable } from '@angular/core';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { List } from 'immutable';
 import { Observable } from 'rxjs/Observable';
-import { AppState } from '../app';
+import { AppState } from 'src/app';
 import { Tracklist } from './models/tracklist';
 import { Track } from './models/track';
 import { getCurrentTracklist, getTracksForCurrentTracklist, getTracksForCurrentTracklistV2, getCurrentTracklistV2 } from './reducers/selectors';
@@ -30,8 +30,8 @@ export class TracklistService {
   }
 
   loadNextTracks(): void {
-    // console.log('##### loaded next tracks() ######');
-    let action: Action = this.actions.loadNextTracks();
-    this.store$.dispatch(action);
+    this.store$.dispatch(
+      this.actions.loadNextTracks()
+    );
   }
 }

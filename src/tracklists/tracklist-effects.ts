@@ -9,8 +9,8 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Store, Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { AppState } from '../app';
-import { ApiService } from '../core';
+import { AppState } from 'src/app';
+import { ApiService } from 'src/core';
 import { getCurrentTracklist } from './reducers/selectors';
 import { TracklistActions } from './tracklist-actions';
 
