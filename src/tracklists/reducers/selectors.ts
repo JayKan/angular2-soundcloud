@@ -8,9 +8,9 @@ import 'rxjs/add/operator/combineLatest';
 
 import { List } from 'immutable';
 import { Observable } from 'rxjs/Observable';
-import { AppState } from '../../app';
+import { AppState } from 'src/app';
 import { TRACKS_PER_PAGE } from '../../constants';
-import { Selector } from '../../core';
+import { Selector } from 'src/core';
 import { Tracklist } from '../models/tracklist';
 import { Track } from '../models/track';
 import { TracklistsState } from './tracklists-reducer';
