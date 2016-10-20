@@ -1,7 +1,7 @@
 import { Action, ActionReducer } from '@ngrx/store';
 import { Map } from 'immutable';
-import { SearchActions } from '../../search';
-import { UserActions } from '../../users';
+import { SearchActions } from 'src/search/serach-actions';
+import { UserActions } from 'src/users/user-actions';
 import { TracklistActions } from '../tracklist-actions';
 import { tracklistReducer } from './tracklist-reducer';
 
@@ -19,7 +19,6 @@ export const tracklistsReducer: ActionReducer<TracklistsState> = (state: Trackli
       );
 
     case TracklistActions.LOAD_NEXT_TRACKS:
-      console.log('tracklistsReducer().LOAD_NEXT_TRACKS');
       return state.set(
         state.get('currentTracklistId'),
         tracklistReducer(state.get(state.get('currentTracklistId')), action)
