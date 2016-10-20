@@ -1,10 +1,11 @@
 player-controls {
+  display: block;
+  position: relative;
 
   .player-controls {
     display: flex;
     align-items: center;
     margin: 0 auto;
-    padding-top: 8px;
     max-width: 970px;
     font-size: .8125rem;
 
