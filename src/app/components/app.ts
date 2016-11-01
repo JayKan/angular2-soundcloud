@@ -6,9 +6,9 @@ import { Component, ViewEncapsulation } from '@angular/core';
   template: `  
   <app-header></app-header>
 
-  <section class="main">
+  <main class="main">
     <router-outlet></router-outlet>
-  </section>
+  </main>
   
   <player></player>
   `,
