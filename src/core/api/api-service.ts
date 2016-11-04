@@ -3,7 +3,7 @@ import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Http, Request, RequestMethod, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { UserData } from '../../../users';
+import { UserData } from '../../users';
 import { PaginateData, RequestArgs, RequestOptions } from './interfaces';
 import { API_TRACKS_URL, API_USERS_URL, CLIENT_ID_PARAM, PAGINATION_PARAMS } from '../../constants';
 
