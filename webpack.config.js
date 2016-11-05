@@ -2,6 +2,7 @@
 
 const path = require('path');
 const autoprefixer = require('autoprefixer');
+
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
@@ -21,39 +22,35 @@ const ENV_DEVELOPMENT = NODE_ENV === 'development';
 const ENV_PRODUCTION  = NODE_ENV === 'production';
 const ENV_TEST        = NODE_ENV === 'test';
 const HOST            = process.env.HOST || 'localhost';
-const PORT            = process.env.PORT || 3000;
+const PORT            = process.env.PORT || 5000;
 
 //=========================================================
 //  LOADERS
 //---------------------------------------------------------
 const rules = {
-  typescript: {
-    test: /\.ts$/,
-    loader: 'ts',
-    exclude: /node_modules/
+  rawLoader: {
+    test: /\.(html)$/,
+    loader: 'raw-loader',
+    exclude: path.resolve('src/index.html')
   },
   componentStyles: {
     test: /\.scss$/,
     loader: 'raw!postcss!sass',
     exclude: path.resolve('src/shared/styles')
   },
+  scss: {
+    test: /\.scss$/,
+    loader: ExtractTextPlugin.extract('css?-autoprefixer!postcss!sass')
+  },
   sharedStyles: {
     test: /\.scss$/,
     loader: 'style!css!postcss!sass',
     include: path.resolve('src/shared/styles')
   },
-  jsonLoader: {
-    test: /\.json$/,
-    loader: 'json-loader'
-  },
-  fileLoader: {
-    test: /\.(jpg|png|gif)$/,
-    loader: 'file-loader'
-  },
-  rawLoader: {
-    test: /\.(html)$/,
-    loader: 'raw-loader',
-    exclude: path.resolve('src/index.html')
+  typescript: {
+    test: /\.ts$/,
+    loader: 'ts',
+    exclude: [/\.(spec|e2e)\.ts$/]
   }
 };
 
@@ -62,12 +59,8 @@ const rules = {
 //---------------------------------------------------------
 const config = module.exports = {};
 
-/**
- * Resolve
- * Reference: http://webpack.github.io/docs/configuration.html#resolve
- */
 config.resolve = {
-  extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html', '.svg'],
+  extensions: ['.ts', '.js'],
   mainFields: ['module', 'browser', 'main'],
   modules: [
     path.resolve('.'),
@@ -79,8 +72,6 @@ config.module = {
   rules: [
     rules.typescript,
     rules.componentStyles,
-    rules.jsonLoader,
-    rules.fileLoader,
     rules.rawLoader
   ]
 };
@@ -174,7 +165,6 @@ if (ENV_DEVELOPMENT) {
     }
   };
 }
-
 
 //=========================================================
 //  PRODUCTION ONLY
