@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { TracklistService } from '../../tracklist';
+import { TracklistService } from 'src/tracklists';
 
 @Component({
   selector: 'home-page',
