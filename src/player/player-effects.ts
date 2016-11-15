@@ -5,9 +5,10 @@ import 'rxjs/add/operator/let';
 import 'rxjs/add/operator/map';
 
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { Actions, Effect } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { AppState } from '../';
+import { Store, Action } from '@ngrx/store';
+import { AppState } from '../app';
 import { getPlayerTracklistCursor } from './reducers/selectors';
 import { PlayerActions } from './player-actions';
 import { playerStorage } from './player-storage';
@@ -21,14 +22,14 @@ export class PlayerEffects {
   ) {}
 
   @Effect()
-  audioEnded$ = this.actions$
+  audioEnded$: Observable<Action> = this.actions$
     .ofType(PlayerActions.AUDIO_ENDED)
     .withLatestFrom(this.store$.let(getPlayerTracklistCursor(false)), (action, cursor) => cursor)
     .filter(cursor => !!cursor.nextTrackId)
     .map(cursor => this.playerActions.playSelectedTrack(cursor.nextTrackId));
 
   @Effect()
-  audioVolumneChanged$ = this.actions$
+  audioVolumeChanged$: Observable<Action> = this.actions$
     .ofType(PlayerActions.AUDIO_VOLUME_CHANGED)
     .do(action => playerStorage.volume = action.payload.volume)
     .ignoreElements();
