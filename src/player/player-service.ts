@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { PLAYER_INITIAL_VOLUME } from '../constants'
-import { AppState } from '../';
-import { Track, TracklistCursor } from '../../tracklist';
+import { AppState } from '../app';
+import { Track, TracklistCursor } from 'src/tracklists';
 import { PlayerState } from './reducers/player-state';
 import { getPlayer, getPlayerTrack, getPlayerTracklistCursor, getTimes } from './reducers/selectors';
 import { TimesState } from './reducers/times-state';
