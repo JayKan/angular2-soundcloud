@@ -5,8 +5,8 @@ import 'rxjs/add/operator/let';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/withLatestFrom';
 
-import { AppState } from '../../';
-import { Selector } from '../../core';
+import { AppState } from 'src/app';
+import { Selector } from 'src/core';
 import {
   getTracklistCursor,
   getTracklists,
@@ -14,7 +14,7 @@ import {
   Track,
   Tracklist,
   TracklistCursor
-} from '../../../tracklist';
+} from 'src/tracklists';
 import { PlayerState } from './player-state';
 import { TimesState } from './times-state';
 
@@ -35,7 +35,8 @@ export function getPlayerTrack(): Selector<AppState, Track> {
 
 export function getPlayerTrackId(): Selector<AppState, number>{
   return state$ => state$
-    .map((state: AppState) => state.player.trackId);
+    .map((state: AppState) => state.player.trackId)
+    .distinctUntilChanged();
 }
 
 export function getPlayerTracklist(): Selector<AppState, Tracklist> {
