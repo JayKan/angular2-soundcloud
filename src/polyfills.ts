@@ -16,4 +16,3 @@ import 'zone.js/dist/zone';
 
 // Typescript emit helpers polyfill
 import 'ts-helpers';
-
