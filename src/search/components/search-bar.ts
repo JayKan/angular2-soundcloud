@@ -7,11 +7,15 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template:`
-  <div class="search-bar" [ngClass]="{'search-bar--open': open}" role="search">
+  <div click-target class="search-bar" [ngClass]="{'search-bar-open': open}" role="search"      
+      (clickOutside)="handleClickOutside($event)" 
+      (mousedownOutside)="handleMousedownOutside()"
+      (mouseupOutside)="handleMouseupOutside()"
+      >
     <form class="search-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
       <input 
         type="text"
-        class="search-form__input"
+        class="search-form-input"
         placeholder="Search Tracks"
         autocomplete="off"
         formControlName="search"
@@ -61,9 +65,35 @@ export class SearchBarComponent implements OnChanges, OnInit {
     if (this.form.valid) {
       const value = this.searchInput.value.trim();
       if (value.length) {
+        console.log('Search value: ', value);
         this.router.navigate(['/search', { q: value }]);
         this.searchInputEl.blur();
       }
     }
+  }
+
+  handleClick(): void {
+    console.log( "Clicked component!" );
+  }
+
+  handleClickOutside(event): void {
+    // console.warn( "Clicked - outside - component: ", this.open, event );
+    // this.open = !this.open;
+    // if (this.open) {
+    //   this.open = false;
+    // }
+    // if (this.open) {
+    //   console.warn( "Clicked - outside - component!" );
+    //   this.open = false;
+    // }
+  }
+
+  handleMousedownOutside(): void {
+    // console.warn( "Moused-Down - outside - component!" );
+
+  }
+
+  handleMouseupOutside(): void {
+    // console.warn( "Moused-Up - outside - component!" );
   }
 }
