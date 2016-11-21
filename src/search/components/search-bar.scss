@@ -1,11 +1,14 @@
 search-bar {
+  display: block;
+  position: relative;
+
   .search-bar {
     height: 0;
     overflow: hidden;
     transition: height 160ms ease-in-out;
   }
 
-  .search-bar--open {
+  .search-bar-open {
     height: 90px;
   }
 
@@ -13,7 +16,7 @@ search-bar {
     border-top: 1px solid rgba(255, 255, 255, .05);
   }
 
-  .search-form__input {
+  .search-form-input {
     outline: none;
     border: 0;
     padding: 0;
