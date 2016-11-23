@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 
-import { SharedModule } from '../shared';
+import { SharedModule } from 'src/shared';
 
 import { PlayerComponent } from './components/player';
 import { PlayerControlsComponent } from './components/player-controls';
@@ -30,8 +30,8 @@ export { TimesState, TimesStateRecord } from './reducers/times-state';
     PlayerComponent
   ],
   imports: [
-    SharedModule,
-    EffectsModule.run(PlayerEffects)
+    EffectsModule.run(PlayerEffects),
+    SharedModule
   ],
   providers: [
     AUDIO_SOURCE_PROVIDER,
