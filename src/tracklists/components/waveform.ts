@@ -8,7 +8,7 @@ import {
   ViewEncapsulation,
   OnInit
 } from '@angular/core';
-import { ApiService } from '../../core';
+import { ApiService } from 'src/core';
 
 @Component({
   selector: 'waveform',
