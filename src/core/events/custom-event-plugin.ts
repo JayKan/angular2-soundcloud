@@ -19,9 +19,9 @@ export class CustomEventPlugin extends EventManagerPlugin {
   addEventListener(element: HTMLElement, eventName: string, handler: Function): Function {
     const zone = this.manager.getZone();
     const documentEvent = this._eventMap[eventName];
-    const triggerEventInZone = (event) => zone.run(() => handler(event));
+    const triggerEventInZone = (event: any) => zone.run(() => handler(event));
 
-    const checkEventTarget = (event) => {
+    const checkEventTarget = (event: any) => {
       let current = event.target;
       do {
         if (current === element)
