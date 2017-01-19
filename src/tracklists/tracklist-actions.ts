@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
-
-const FEATURED_TRACKLIST_ID = 'featured';
-const FEATURED_TRACKLIST_USER_ID = 185676792;
+import { FEATURED_TRACKLIST_ID, FEATURED_TRACKLIST_USER_ID } from 'src/constants';
 
 @Injectable()
 export class TracklistActions {
-  static FETCH_TRACKS_FAILED = 'FETCH_TRACKS_FAILED';
-  static FETCH_TRACKS_FULFILLED = 'FETCH_TRACKS_FULFILLED';
-  static LOAD_FEATURED_TRACKS = 'LOAD_FEATURED_TRACKS';
-  static LOAD_NEXT_TRACKS = 'LOAD_NEXT_TRACKS';
-  static MOUNT_TRACKLIST = 'MOUNT_TRACKLIST';
+  static FETCH_TRACKS_FAILED: string    = 'FETCH_TRACKS_FAILED';
+  static FETCH_TRACKS_FULFILLED: string = 'FETCH_TRACKS_FULFILLED';
+  static LOAD_FEATURED_TRACKS: string   = 'LOAD_FEATURED_TRACKS';
+  static LOAD_NEXT_TRACKS: string       = 'LOAD_NEXT_TRACKS';
+  static MOUNT_TRACKLIST: string        = 'MOUNT_TRACKLIST';
 
   fetchTracksFailed(error: any): Action {
     return {
