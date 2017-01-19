@@ -1,28 +1,41 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "noEmitHelpers": true,
+    "strictNullChecks": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "build/tmp",
     "lib": [
       "dom",
       "es6"
     ],
-    "module": "es6",
-    "moduleResolution": "node",
-    "noEmitHelpers": true,
-    "removeComments": true,
-    "sourceMap": true,
-    "target": "es5",
     "types": [
       "jasmine",
-      "node"
+      "node",
+      "jquery"
     ]
   },
-
   "exclude": [
+    "build",
+    "public",
     "node_modules",
-    "target",
-    "tmp",
-    "typings"
-  ]
+    "src/main.aot.ts",
+    "tmp"
+  ],
+  "angularCompilerOptions": {
+    "debug": true,
+    "genDir": "build",
+    "skipMetadataEmit": true
+  },
+  "compileOnSave": false,
+  "buildOnSave": false
 }

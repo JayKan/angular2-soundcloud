@@ -1,6 +1,10 @@
 'use strict';
 
-require('core-js/es6');
+require('core-js/es6/array');
+require('core-js/es6/map');
+require('core-js/es6/set');
+require('core-js/es6/string');
+require('core-js/es6/symbol');
 require('core-js/es7/reflect');
 require('core-js/fn/array/includes');
 require('core-js/fn/object/assign');
@@ -27,13 +31,14 @@ testing.TestBed.initTestEnvironment(
 );
 
 // Load source files
-const context = require.context('./src', true, /\.ts/);
+const context = require.context('./src', true, /\.spec\.ts/);
 const exclude = [
   './main.ts',
   './polyfills.ts',
   './vendor.ts'
 ];
 
-context.keys().forEach(function(key) {
-  if (exclude.indexOf(key) === -1) context(key);
-});
+// context.keys().forEach(function(key) {
+//   if (exclude.indexOf(key) === -1) context(key);
+// });
+context.keys().forEach(context);
