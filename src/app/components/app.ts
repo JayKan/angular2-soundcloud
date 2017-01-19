@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import './app.scss';
 
 @Component({
   selector: 'app',
@@ -11,9 +12,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
   </main>
   
   <player></player>
-  `,
-  styles: [
-    require('./app.scss')
-  ]
+  `
 })
-export class AppComponent { }
+export class AppComponent {}
