@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // import common styles
-import './app/assets/styles/styles.scss';
+import './shared/styles/styles.scss';
 
 // import app module
 import { AppModule } from './app';
@@ -23,4 +23,6 @@ if (document.readyState === 'complete') {
 } else {
   document.addEventListener('DOMContentLoaded', main);
 }
+
+
 

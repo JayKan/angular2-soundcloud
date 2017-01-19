@@ -4,6 +4,7 @@ const path = require('path');
 const autoprefixer = require('autoprefixer');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const NoErrorsPlugin = require('webpack/lib/NoErrorsPlugin');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
@@ -22,7 +23,7 @@ const ENV_DEVELOPMENT = NODE_ENV === 'development';
 const ENV_PRODUCTION  = NODE_ENV === 'production';
 const ENV_TEST        = NODE_ENV === 'test';
 const HOST            = process.env.HOST || 'localhost';
-const PORT            = process.env.PORT || 5000;
+const PORT            = process.env.PORT || 3000;
 
 //=========================================================
 //  LOADERS
@@ -71,7 +72,8 @@ config.resolve = {
 config.module = {
   rules: [
     rules.typescript,
-    rules.componentStyles,
+    // rules.componentStyles,
+    rules.scss,
     rules.rawLoader
   ]
 };
@@ -111,7 +113,7 @@ config.plugins = [
 //---------------------------------------------------------
 if (ENV_DEVELOPMENT || ENV_PRODUCTION) {
   config.entry = {
-    main: './src/main.ts',
+    // main: './src/main.ts',
     polyfills: './src/polyfills.ts'
   };
 
@@ -125,6 +127,7 @@ if (ENV_DEVELOPMENT || ENV_PRODUCTION) {
       name: ['polyfills'],
       minChunks: Infinity
     }),
+    new ExtractTextPlugin(ENV_PRODUCTION ? 'styles.[chunkhash].css' : 'styles.css'),
     new HtmlWebpackPlugin({
       chunkSortMeta: 'dependency',
       filename: 'index.html',
@@ -141,9 +144,9 @@ if (ENV_DEVELOPMENT || ENV_PRODUCTION) {
 if (ENV_DEVELOPMENT) {
   config.devtool = 'cheap-module-source-map';
 
-  config.output.filename = '[name].js';
+  config.entry.main = './src/main.jit.ts';
 
-  config.module.rules.push(rules.sharedStyles);
+  config.output.filename = '[name].js';
 
   config.plugins.push(new ProgressPlugin());
 
@@ -170,19 +173,22 @@ if (ENV_DEVELOPMENT) {
 //  PRODUCTION ONLY
 //---------------------------------------------------------
 if (ENV_PRODUCTION) {
-  config.devtool = 'hidden-source-map';
+  config.devtool = 'source-map';
+
+  config.entry.main = './src/main.aot.ts';
 
   config.output.filename = '[name].[chunkhash].js';
 
-  config.module.rules.push({
-    test: /\.scss$/,
-    loader: ExtractTextPlugin.extract('css?-autoprefixer!postcss!sass'),
-    include: path.resolve('src/shared/styles')
-  });
+  // config.module.rules.push({
+  //   test: /\.scss$/,
+  //   loader: ExtractTextPlugin.extract('css?-autoprefixer!postcss!sass'),
+  //   include: path.resolve('src/shared/styles')
+  // });
 
   config.plugins.push(
+    new NoErrorsPlugin(),
     new WebpackMd5Hash(),
-    new ExtractTextPlugin('styles.[contenthash].css'),
+    // new ExtractTextPlugin('styles.[contenthash].css'),
     new UglifyJsPlugin({
       comments: false,
       compress: {
@@ -204,5 +210,11 @@ if (ENV_PRODUCTION) {
 if (ENV_TEST) {
   config.devtool = 'inline-source-map';
 
-  config.module.rules.push(rules.sharedStyles);
+  config.module.rules = [
+    {
+      test: /\.ts$/,
+      loader: 'ts'
+    },
+    rules.rawLoader
+  ];
 }
