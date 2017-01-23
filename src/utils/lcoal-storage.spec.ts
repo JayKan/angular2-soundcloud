@@ -2,8 +2,9 @@ import { localStorageAdapter } from './local-storage';
 
 describe('Utils Module', () => {
   describe('localStorageAdapter', () => {
-    let data;
-    let storageKey;
+    let data: any;
+    let storageKey: any;
+
 
     beforeEach(() => {
       data = { "foo": "bar", "baz": 123 }; // tslint:disable-line:quotemark
