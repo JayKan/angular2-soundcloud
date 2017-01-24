@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { TimesState } from '../../../player';
+import './audio-timeline.scss';
 
 @Component({
   selector: 'audio-timeline',
@@ -14,10 +15,7 @@ import { TimesState } from '../../../player';
     <div class="bar bar-elapsed"
         [ngStyle]="{'width': times?.percentCompleted}">   
     </div>            
-  `,
-  styles: [
-    require('./audio-timeline.scss')
-  ]
+  `
 })
 export class AudioTimelineComponent {
   @Input() times: TimesState;
