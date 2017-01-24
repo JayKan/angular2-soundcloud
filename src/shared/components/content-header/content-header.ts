@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, Input } from '@angular/core';
+import './content-header.scss';
 
 @Component({
   selector: 'content-header',
@@ -12,10 +13,7 @@ import { Component, ViewEncapsulation, Input } from '@angular/core';
       </div>
     </div>
   </header>  
-  `,
-  styles: [
-    require('./content-header.scss')
-  ]
+  `
 })
 export class ContentHeaderComponent {
   @Input() section: string;
