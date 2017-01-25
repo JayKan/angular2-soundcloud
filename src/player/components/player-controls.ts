@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy, EventEmitter, In
 import { Observable } from 'rxjs/Observable';
 import { Track, TracklistCursor } from 'src/tracklists';
 import { PlayerState } from '../reducers/player-state';
+import './player-controls.scss';
 
 @Component({
   selector: 'player-controls',
@@ -24,10 +25,7 @@ import { PlayerState } from '../reducers/player-state';
       <icon-button [icon]="'fa-plus'" (onClick)="increaseVolume.emit()"></icon-button>
     </div>
   </div>
-  `,
-  styles: [
-    require('./player-controls.scss')
-  ]
+  `
 })
 export class PlayerControlsComponent {
   @Input() currentTime: Observable<number>;
