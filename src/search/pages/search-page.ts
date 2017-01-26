@@ -17,7 +17,7 @@ import { SearchService } from '../search-service';
       [section]="section"
       [title]="search.query$ | async">      
     </content-header>
-    <!--<tracklist></tracklist>-->
+    <tracklist></tracklist>
   </section>
   `
 })
