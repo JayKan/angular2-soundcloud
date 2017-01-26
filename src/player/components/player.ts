@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Renderer } from '@angular/core';
 import { PlayerService } from '../player-service';
+import './player.scss';
 
 @Component({
   selector: 'player',
@@ -24,10 +25,7 @@ import { PlayerService } from '../player-service';
     (play)="player.play()"
     (select)="player.select({trackId: $event})">   
   </player-controls>   
-  `,
-  styles: [
-    require('./player.scss')
-  ]
+  `
 })
 export class PlayerComponent {
   constructor(public el: ElementRef, public player: PlayerService, public renderer: Renderer) {
