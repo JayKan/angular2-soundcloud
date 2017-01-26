@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Input, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import './search-bar.scss';
 
 @Component({
   selector: 'search-bar',
@@ -23,10 +24,7 @@ import { Router } from '@angular/router';
         required>
     </form>
   </div>
-  `,
-  styles:[
-    require('./search-bar.scss')
-  ]
+  `
 })
 export class SearchBarComponent implements OnChanges, OnInit {
   @Input() open: boolean = false;
@@ -65,7 +63,7 @@ export class SearchBarComponent implements OnChanges, OnInit {
     if (this.form.valid) {
       const value = this.searchInput.value.trim();
       if (value.length) {
-        console.log('Search value: ', value);
+        // console.log('Search value: ', value);
         this.router.navigate(['/search', { q: value }]);
         this.searchInputEl.blur();
       }
@@ -76,16 +74,8 @@ export class SearchBarComponent implements OnChanges, OnInit {
     console.log( "Clicked component!" );
   }
 
-  handleClickOutside(event): void {
+  handleClickOutside(event: any): void {
     // console.warn( "Clicked - outside - component: ", this.open, event );
-    // this.open = !this.open;
-    // if (this.open) {
-    //   this.open = false;
-    // }
-    // if (this.open) {
-    //   console.warn( "Clicked - outside - component!" );
-    //   this.open = false;
-    // }
   }
 
   handleMousedownOutside(): void {
