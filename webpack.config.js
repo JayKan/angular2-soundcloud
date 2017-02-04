@@ -72,7 +72,6 @@ config.resolve = {
 config.module = {
   rules: [
     rules.typescript,
-    // rules.componentStyles,
     rules.scss,
     rules.rawLoader
   ]
@@ -175,20 +174,13 @@ if (ENV_DEVELOPMENT) {
 if (ENV_PRODUCTION) {
   config.devtool = 'source-map';
 
-  config.entry.main = './src/main.aot.ts';
+  config.entry.main = './src/main.jit.ts';
 
   config.output.filename = '[name].[chunkhash].js';
-
-  // config.module.rules.push({
-  //   test: /\.scss$/,
-  //   loader: ExtractTextPlugin.extract('css?-autoprefixer!postcss!sass'),
-  //   include: path.resolve('src/shared/styles')
-  // });
 
   config.plugins.push(
     new NoErrorsPlugin(),
     new WebpackMd5Hash(),
-    // new ExtractTextPlugin('styles.[contenthash].css'),
     new UglifyJsPlugin({
       comments: false,
       compress: {
