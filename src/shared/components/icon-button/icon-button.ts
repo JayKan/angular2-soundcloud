@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+import './icon-button.scss';
 
 @Component({
   selector: 'icon-button',
@@ -8,12 +9,10 @@ import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angu
       [attr.aria-label]="label"
       class="btn btn-icon btn-{{ icon }} {{ className }}"
       (click)="onClick.emit($event)">
-      <icon [name]="icon"></icon>
+      <!--<icon [name]="icon"></icon>-->
+      <i class="fa {{ icon }}" aria-hidden="true"></i>
     </button>
-  `,
-  styles: [
-    require('./icon-button.scss')
-  ]
+  `
 })
 export class IconButtonComponent {
   @Input() label: string;

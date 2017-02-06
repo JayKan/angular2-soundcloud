@@ -1,10 +1,3 @@
-.btn-icon {
-  border-radius: 100%;
-  padding: 8px;
-  width: 40px;
-  height: 40px;
-}
-
 .btn {
   display: inline-block;
   text-align: center;
@@ -20,5 +13,56 @@
 
   &:hover {
     cursor: pointer;
+  }
+
+  &.btn-icon {
+    border-radius: 100%;
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+
+    &.btn-fa-soundcloud,
+    &.btn-fa-search,
+    &.btn-fa-github {
+      margin-top: 0;
+      width: 36px;
+      height: 28px;
+
+      i.fa-search {
+        color: #98999a;
+        font-size: 20px;
+      }
+
+      i.fa-soundcloud {
+        color: #98999a;
+        font-size: 28px;
+      }
+    }
+
+    &.btn-fa-play,
+    &.btn-fa-pause,
+    &.btn-fa-step-backward,
+    &.btn-fa-step-forward,
+    &.btn-fa-minus,
+    &.btn-fa-plus {
+      height: 56px;
+
+      i.fa-play,
+      i.fa-pause,
+      i.fa-step-backward,
+      i.fa-step-forward,
+      i.fa-minus,
+      i.fa-plus {
+        color: #5d5e5f;
+      }
+    }
+
+    &.btn-fa-plus {
+      padding-left: 0;
+    }
+
+    &.btn-fa-minus {
+      padding-right: 0;
+    }
   }
 }
