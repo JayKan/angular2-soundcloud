@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import './loading-indicator.scss';
 
 @Component({
   selector: 'loading-indicator',
@@ -9,9 +10,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
     <div class="circle circle--2"></div>
     <div class="circle circle--3"></div>
   </div>
-  `,
-  styles: [
-    require('./loading-indicator.scss')
-  ]
+  `
 })
 export class LoadingIndicatorComponent {}
