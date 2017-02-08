@@ -3,8 +3,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 
-import { SharedModule } from '../shared';
-import { TracklistModule } from '../../tracklist';
+import { SharedModule } from 'src/shared';
+import { TracklistModule } from 'src/tracklists';
 
 import { SearchBarComponent } from './components/search-bar';
 import { SearchPageComponent } from './pages/search-page';
@@ -30,16 +30,15 @@ const routes: Routes = [
     SearchBarComponent
   ],
   imports: [
-    ReactiveFormsModule,
-    SharedModule,
-    // TracklistModule,
-
     EffectsModule.run(SearchEffects),
-    RouterModule.forChild(routes)
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
+    SharedModule,
+    TracklistModule
   ],
   providers: [
     SearchActions,
     SearchService
   ]
 })
-export class SearchModule { }
+export class SearchModule {}
