@@ -5,13 +5,14 @@ import 'rxjs/add/operator/let';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { AppState } from '../';
-import { ApiService } from '../core';
-import { getCurrentTracklist, TracklistActions } from '../tracklist';
+import { AppState } from 'src/app';
+import { ApiService } from 'src/core';
+import { getCurrentTracklist } from '../tracklists';
+import { TracklistActions } from 'src/tracklists/tracklist-actions';
 import { getCurrentUser } from './reducers/selectors';
 import { UserActions } from './user-actions';
 
@@ -21,12 +22,12 @@ export class UserEffects {
     private actions$: Actions,
     private api: ApiService,
     private store$: Store<AppState>,
-    private tracklistActions: TracklistActions,
-    private userActions: UserActions
+    private userActions: UserActions,
+    private tracklistActions: TracklistActions
   ) {}
 
   @Effect()
-  laodUsers$ = this.actions$
+  loadUser$: Observable<Action> = this.actions$
     .ofType(UserActions.LOAD_USER)
     .withLatestFrom(this.store$.let(getCurrentUser()), (action, user) => ({
       payload: action.payload,
@@ -35,12 +36,12 @@ export class UserEffects {
     .filter(({ user }) => !user || !user.profile)
     .switchMap(({ payload }) => {
       return this.api.fetchUser(payload.userId)
-        .map(user => this.userActions.fetchUserFulfilled(user))
+        .map((user: any) => this.userActions.fetchUserFulfilled(user))
         .catch(error => Observable.of(this.userActions.fetchUserFailed(error)));
     });
 
   @Effect()
-  loadUserLikes$ = this.actions$
+  loadUserLikes$: Observable<Action> = this.actions$
     .ofType(UserActions.LOAD_USER_LIKES, TracklistActions.LOAD_FEATURED_TRACKS)
     .withLatestFrom(this.store$.let(getCurrentTracklist()), (action, tracklist) => ({
       payload: action.payload,
@@ -54,7 +55,7 @@ export class UserEffects {
     });
 
   @Effect()
-  loadUserTracks$ = this.actions$
+  loadUserTracks$: Observable<Action> = this.actions$
     .ofType(UserActions.LOAD_USER_TRACKS)
     .withLatestFrom(this.store$.let(getCurrentTracklist()), (action, tracklist) => ({
       payload: action.payload,
