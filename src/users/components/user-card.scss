@@ -9,7 +9,7 @@ user-card {
     background: #1d1e1f;
   }
 
-  .user-card__title {
+  .user-card-title {
     margin-bottom: 27px;
     color: #d6d6d6;
     font-size: 2.25rem;
@@ -17,7 +17,7 @@ user-card {
     line-height: (50px / 36px);
   }
 
-  .user-stats__label {
+  .user-stats-label {
     display: block;
     border-bottom: 1px solid #363738;
     padding-bottom: 3px;
@@ -29,7 +29,33 @@ user-card {
     }
   }
 
-  .user-stats__value {
+  .user-stats-value {
     font-size: 1.5rem;
   }
+
+  .g-col.xs-1\/2 {
+    width: 50%;
+  }
+
+  @media screen and (max-width: 31.24em) {
+    .xs-hide {
+      display: none;
+    }
+  }
+  @media screen and (min-width: 31.25em) {
+    .g-col.sm-1\/4 {
+      width: 25%;
+    }
+  }
+  @media screen and (min-width: 46.25em) {
+    .g-col.md-1\/3 {
+      width: 33.3333333333%;
+    }
+  }
+  @media screen and (min-width: 61.25em) {
+    .g-col.lg-1\/2 {
+      width: 50%;
+    }
+  }
+
 }
