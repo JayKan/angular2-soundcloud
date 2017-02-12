@@ -3,7 +3,7 @@ import { createUser, User, UserRecord } from './user';
 
 describe('users', () => {
   describe('User', () => {
-    let user;
+    let user: any;
 
     beforeEach(() => {
       user = new UserRecord();
