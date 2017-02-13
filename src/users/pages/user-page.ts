@@ -30,7 +30,7 @@ export class UserPageComponent implements OnDestroy {
   constructor(public route: ActivatedRoute, public user: UserService) {
     route.params
       .takeUntil(this.ngOnDestroy$)
-      .do(({id, resource}: {id: string, resource: string}) => {
+      .do(({ id, resource }: {id: string, resource: string}) => {
         user.loadResource(id, resource);
         this.resource = resource;
       })
