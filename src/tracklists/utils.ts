@@ -4,7 +4,7 @@ import {
   IMAGE_XLARGE_SIZE,
   WAVEFORM_IMAGE_HOST,
   WAVEFORM_JSON_HOST
-} from '../constants';
+} from 'src/constants';
 import { TrackData } from './models/track';
 
 const EN_DASH = String.fromCharCode(8211);
