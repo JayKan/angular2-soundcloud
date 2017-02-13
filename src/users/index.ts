@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 
-import { SharedModule } from '../shared';
-import { TracklistModule } from '../tracklist';
+import { SharedModule } from 'src/shared';
+import { TracklistModule } from 'src/tracklists';
 
 import { UserCardComponent } from './components/user-card';
 import { UserPageComponent } from './pages/user-page';
@@ -26,14 +26,14 @@ const routes: Routes = [
     UserPageComponent
   ],
   imports: [
-    SharedModule,
-    TracklistModule,
     RouterModule.forChild(routes),
-    EffectsModule.run(UserEffects)
+    SharedModule,
+    EffectsModule.run(UserEffects),
+    TracklistModule
   ],
   providers: [
     UserActions,
-    UserService
+    UserService,
   ]
 })
 export class UsersModule {}
