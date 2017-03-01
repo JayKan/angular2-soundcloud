@@ -1,7 +1,8 @@
 import { Component, ViewEncapsulation, Input, Output, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { TimesState } from '../../player';
+import { TimesState } from 'src/player/reducers/times-state';
 import { Track } from '../models/track';
+import './tracklist-card.scss';
 
 @Component({
   selector: 'track-card',
@@ -36,33 +37,34 @@ import { Track } from '../models/track';
       <div class="track-card-actions" *ngIf="track.streamable">
         <div class="cell">
           <icon-button
-              [icon]="isPlaying ? 'pause' : 'play' "
+              [icon]="isPlaying ? 'fa-pause' : 'fa-play'"
               (onClick)="isPlaying ? pause.emit() : play.emit()"></icon-button>
           <span class="meta-duration">{{ track.duration | formatTime:'ms' }}</span>
         </div>
   
         <div class="cell" *ngIf="!compact">
-          <icon [name]="'headset'" [className]="'icon--small'"></icon>
+          <!--<icon [name]="'headset'" [className]="'icon&#45;&#45;small'"></icon>-->
+          <i class="fa fa-headphones" aria-hidden="true"></i>
           <span class="meta-playback-count">{{ track.playbackCount | formatInteger }}</span>
         </div>
   
         <div class="cell" *ngIf="!compact">
-          <icon [name]="'favorite-border'" [className]="'icon--small'"></icon>
+          <!--<icon [name]="'favorite-border'" [className]="'icon&#45;&#45;small'"></icon>-->
+          <i class="fa fa-heart-o" aria-hidden="true"></i>
           <span class="meta-likes-count">{{ track.likesCount | formatInteger }}</span>
         </div>
   
         <div class="cell">
           <a [href]="track.userPermalinkUrl" target="_blank" rel="noopener noreferrer">
-            <icon [name]="'launch'" [className]="'icon--small'"></icon>
+            <!--<icon [name]="'launch'" [className]="'icon&#45;&#45;small'"></icon>-->
+            <i class="fa fa-external-link" aria-hidden="true"></i>
           </a>
+            
         </div>
       </div>
     </div>
   </article>
-  `,
-  styles: [
-    require('./tracklist-card.scss')
-  ]
+  `
 })
 export class TrackCardComponent {
   @Input() compact: boolean = false;
