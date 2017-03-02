@@ -41,11 +41,27 @@ track-card {
         display: flex;
       }
 
+      i.fa-external-link {
+        color: #5d5e5f;
+        font-size: 15px;
+        margin-top: 5px;
+      }
+
+      i.fa-headphones,
+      i.fa-heart-o {
+        font-size: 15px;
+      }
+
       > a {
         display: flex;
 
         &:visited {
           fill: #4d4e4f;
+        }
+
+        &:hover {
+          text-decoration: none;
+          cursor: pointer;
         }
       }
 
@@ -53,12 +69,12 @@ track-card {
         margin-left: 6px;
       }
 
-      .icon--headset {
+      .icon-headset {
         margin-top: 2px;
       }
     }
 
-    .btn--icon {
+    .btn-icon {
       &:active {
         background: rgba(0, 0, 0, 0.2);
       }
@@ -76,8 +92,8 @@ track-card {
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
-    border-top: 1px solid rgba(255, 255, 255, .1);
-    border-bottom: 1px solid #18191a;
+    border-top: 1px solid rgba(255, 255, 255, .16);
+    border-bottom: 3px solid #18191a;
     padding-top: 20px;
 
     .track-card-image {
@@ -122,7 +138,7 @@ track-card {
     .track-card-title {
       margin: 0 15px;
       color: #bdbebf;
-      font-size: .8125rem;
+      font-size: .875rem;
       line-height: (20px / 14px);
 
       .has-line-clamp & {
