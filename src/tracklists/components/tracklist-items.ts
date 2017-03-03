@@ -1,10 +1,12 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
 import { List } from 'immutable';
 import { Observable } from 'rxjs/Observable';
-import { MediaQueryResults } from '../../core';
-import { PlayerState, TimesState } from '../../player';
+import { MediaQueryResults } from 'src/core';
+import { PlayerState } from 'src/player/reducers/player-state';
+import { TimesState } from 'src/player/reducers/times-state';
 import { Tracklist } from '../models/tracklist';
 import { Track } from '../models/track';
+import './tracklist-items.scss';
 
 @Component({
   selector: 'tracklist-items',
@@ -27,10 +29,7 @@ import { Track } from '../models/track';
       </track-card>             
     </div>   
     <loading-indicator *ngIf="tracklist.isPending || tracklist.hasNextPage"></loading-indicator>   
-  `,
-  styles: [
-    require('./tracklist-items.scss')
-  ]
+  `
 })
 export class TracklistItemsComponent {
   @Input() layout: string;
@@ -47,8 +46,6 @@ export class TracklistItemsComponent {
   @Output() select: EventEmitter<any> = new EventEmitter<any>(false);
 
   ngOnInit(): void {
-    console.log('isPending: ', this.tracklist.isPending);
-    console.log('hasNextPage: ', this.tracklist.hasNextPage);
     this.tracks.subscribe(data => {
       this.tracks2 = data;
       // console.log('2. Total Number of tracks: ', this.tracks2.size);
