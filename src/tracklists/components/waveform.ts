@@ -9,15 +9,13 @@ import {
   OnInit
 } from '@angular/core';
 import { ApiService } from 'src/core';
+import './waveform.scss';
 
 @Component({
   selector: 'waveform',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template:'',
-  styles: [
-    require('./waveform.scss')
-  ]
+  template:''
 })
 export class WaveformComponent implements OnInit {
   @Input() color: string = '#1d1e1f';
@@ -43,7 +41,7 @@ export class WaveformComponent implements OnInit {
       l = samples.length,
       i = 0,
       x = 0,
-      v;
+      v: any;
 
     for (; i < l; i+=2, x++) {
       v = samples[i] / 4;
