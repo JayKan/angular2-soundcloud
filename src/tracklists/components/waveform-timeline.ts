@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { TimesState } from '../../player';
+import { TimesState } from 'src/player/reducers/times-state';
+import './waveform-timeline.scss';
 
 @Component({
   selector: 'waveform-timeline',
@@ -19,10 +20,7 @@ import { TimesState } from '../../player';
       (ready)="ready = $event">    
     </waveform>
   </div>
-  `,
-  styles: [
-    require('./waveform-timeline.scss')
-  ]
+  `
 })
 export class WaveformTimelineComponent {
   @Input() isActive: boolean = false;
