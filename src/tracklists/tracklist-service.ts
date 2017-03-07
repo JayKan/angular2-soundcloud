@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { AppState } from 'src/app';
 import { Tracklist } from './models/tracklist';
 import { Track } from './models/track';
-import { getCurrentTracklist, getTracksForCurrentTracklist, getTracksForCurrentTracklistV2, getCurrentTracklistV2 } from './reducers/selectors';
+import { getTracksForCurrentTracklistV2, getCurrentTracklistV2 } from './reducers/selectors';
 import { TracklistActions } from './tracklist-actions';
 
 @Injectable()
@@ -16,10 +16,7 @@ export class TracklistService {
   tracks$: Observable<List<Track>>;
 
   constructor(private actions: TracklistActions, private store$: Store<AppState>) {
-    // this.tracklist$ = store$.let(getCurrentTracklist());
-    // this.tracks$ = store$.let(getTracksForCurrentTracklist());
     this.tracklist$ = getCurrentTracklistV2(store$);
-    // this.tracklist$.subscribe(data => console.log('Tracklist: ', JSON.stringify(data)));
     this.tracks$ = getTracksForCurrentTracklistV2(store$);
   }
 
