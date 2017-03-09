@@ -25,7 +25,6 @@ export class TracklistEffects {
 
   @Effect()
   loadNextTracks$: Observable<Action> = this.actions$
-    // Listen for the `LOAD_NEXT_TRACKS` action
     .ofType(TracklistActions.LOAD_NEXT_TRACKS)
     .withLatestFrom(this.store$.let(getCurrentTracklist()), (action, tracklist) => tracklist)
     .filter(tracklist => tracklist.isPending)
@@ -44,9 +43,10 @@ export class TracklistEffects {
     }))
     .filter(({ tracklist }) => tracklist.isNew)
     .switchMap(({ payload }) => {
-      // console.log('2.Load User Likes @Effect()...');
       return this.api.fetchUserLikes(payload.userId)
-        .map(data => this.tracklistActions.fetchTracksFulfilled(data, payload.tracklistId))
+        .map(data => {
+          return this.tracklistActions.fetchTracksFulfilled(data, payload.tracklistId)
+        })
         .catch(error => Observable.of(this.tracklistActions.fetchTracksFailed(error)));
     })
 }
