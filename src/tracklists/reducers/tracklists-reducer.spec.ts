@@ -48,9 +48,9 @@ describe('tracklists', () => {
     });
 
     describe('LOAD_SEARCH_RESULTS action', () => {
-      let action;
-      let query;
-      let tracklistId;
+      let action: any;
+      let query: any;
+      let tracklistId: any;
 
       beforeEach(() => {
         query = 'query';
