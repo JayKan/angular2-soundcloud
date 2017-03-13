@@ -45,11 +45,11 @@ export function getTracksForCurrentTracklist(): Selector<AppState, List<Track>> 
       return previous.currentPage === next.currentPage &&
         previous.trackIds === next.trackIds;
     })
-    .withLatestFrom(state$.let(<any>getTracks()), (tracklist, tracks: any) => {
+    .withLatestFrom(state$.let(<any>getTracks()), (tracklist: any, tracks: any) => {
       console.log('Tracklist: ', tracklist);
       return tracklist.trackIds
         .slice(0, tracklist.currentPage * TRACKS_PER_PAGE)
-        .map(id => tracks.get(id)) as List<Track>;
+        .map((id: any) => tracks.get(id)) as List<Track>;
     });
 }
 
