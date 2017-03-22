@@ -1,7 +1,6 @@
 # Angular2 Soundcloud
 
 [![Angular 2 Style Guide][angular2-style-guide-badge]][style-guide]
-[![Build Status][build-status-badge]][build-status]
 [![Dependency Status][dependency-badge]][dependency]
 [![devDependency Status][devDependency-badge]][devDependency]
 [![PRs Welcome][prs-badge]][prs]
@@ -29,7 +28,6 @@ Once you have installed all prerequisites,
 MIT © [Jay Kan](https://github.com/JayKan)
 
 [build-status-badge]: https://img.shields.io/travis/JayKan/angular2-soundcloud.svg?style=flat-square
-[build-status]: https://travis-ci.org/JayKan/angular2-soundcloud
 [dependency-badge]: https://david-dm.org/JayKan/angular2-soundcloud/status.svg?style=flat-square
 [dependency]: https://david-dm.org/JayKan/angular2-soundcloud
 [devDependency-badge]: https://david-dm.org/JayKan/angular2-soundcloud/dev-status.svg?style=flat-square
